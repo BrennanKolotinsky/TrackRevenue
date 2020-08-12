@@ -1,4 +1,4 @@
 <?php
 
-$createPrivClass = file_get_contents('createPriv.php');
-echo "hi";
+include_once('classes/createPriv.php');
+$createPriv = new createPriv();

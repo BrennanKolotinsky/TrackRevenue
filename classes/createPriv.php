@@ -1,12 +1,11 @@
 <?php
 
-class createCSV {
+class createPriv {
 
 	private $PATH_TO_JSON = "priv.json";
 
 	public function __construct() {
 		$json = $this->createObj($this->PATH_TO_JSON);
-		print_r($json);
 	}
 
 	public function createObj(String $pathToJSON) {
@@ -14,5 +13,3 @@ class createCSV {
 		return json_decode($stringJson, true); // convert to object
 	}
 }
-
-echo "here";
