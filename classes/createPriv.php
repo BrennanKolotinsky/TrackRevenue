@@ -16,9 +16,15 @@ class createPriv {
 	}
 
 	public function writeCSV(Array $json, String $PATH_TO_WRITE) {
-		print_r($json);
 		$output = fopen($PATH_TO_WRITE, "w");
-		fputcsv($output, $this->createHeaders());
+		$headersArr = $this->createHeaders();
+		fputcsv($output, $headersArr);
+
+		$headersMapping = array_flip($headersArr);
+		foreach ($json as $entity => $values) {
+			$row = $this->createEntityPriv($entity, $values, $headersMapping);
+			fputcsv($output, $row);
+		}
 
 		fclose($output);
 	}
@@ -37,5 +43,21 @@ class createPriv {
 		);
 
 		return $array;
+	}
+
+	public function createEntityPriv(String $entity, Array $values, Array $headersMapping) {
+
+		$createdRow = array(
+			0 => $entity,
+		);
+
+		for ($i = 1; $i <= 8; $i++)
+			$createdRow[$i] = 0;
+
+		foreach ($values as $v) {
+			$createdRow[$headersMapping[$v]] = 1;
+		}
+
+		return $createdRow;
 	}
 }
