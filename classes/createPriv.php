@@ -54,9 +54,8 @@ class createPriv {
 		for ($i = 1; $i <= 8; $i++)
 			$createdRow[$i] = 0;
 
-		foreach ($values as $v) {
+		foreach ($values as $v)
 			$createdRow[$headersMapping[$v]] = 1;
-		}
 
 		return $createdRow;
 	}
