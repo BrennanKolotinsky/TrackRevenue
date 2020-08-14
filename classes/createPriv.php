@@ -30,6 +30,7 @@ class createPriv {
 		}
 
 		fclose($output);
+		echo "Successfully created CSV in output directory!\n";
 	}
 
 	public function createHeaders() {
