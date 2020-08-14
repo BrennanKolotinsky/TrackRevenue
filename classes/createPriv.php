@@ -4,6 +4,7 @@ class createPriv {
 
 	private $PATH_TO_JSON = "inputs/priv.json";
 	private $PATH_TO_WRITE = "outputs/priv.csv";
+	private $finishedCSV = array();
 
 	public function __construct() {
 		$json = $this->createObj($this->PATH_TO_JSON);
@@ -18,11 +19,13 @@ class createPriv {
 	public function writeCSV(Array $json, String $PATH_TO_WRITE) {
 		$output = fopen($PATH_TO_WRITE, "w");
 		$headersArr = $this->createHeaders();
+		$this->finishedCSV[] = $headersArr;
 		fputcsv($output, $headersArr);
 
 		$headersMapping = array_flip($headersArr);
 		foreach ($json as $entity => $values) {
 			$row = $this->createEntityPriv($entity, $values, $headersMapping);
+			$this->finishedCSV[] = $row;
 			fputcsv($output, $row);
 		}
 
@@ -58,5 +61,9 @@ class createPriv {
 			$createdRow[$headersMapping[$v]] = 1;
 
 		return $createdRow;
+	}
+
+	public function getFinishedCSV() {
+		return $this->finishedCSV;
 	}
 }
